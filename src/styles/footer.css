@@ -1,0 +1,114 @@
+.site-footer {
+  background: #2c2521;
+  color: #f5eee8;
+}
+
+.back-top {
+  width: 100%;
+  padding: 18px;
+  border: 0;
+  border-bottom: 1px solid rgba(245, 238, 232, 0.18);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.11em;
+}
+
+.newsletter {
+  display: grid;
+  justify-items: center;
+  padding: clamp(48px, 7vw, 80px) 18px;
+  text-align: center;
+}
+
+.newsletter p {
+  color: rgba(245, 238, 232, 0.72);
+}
+
+.newsletter form {
+  display: flex;
+  width: min(520px, 100%);
+  margin-top: 26px;
+  border-bottom: 1px solid rgba(245, 238, 232, 0.66);
+}
+
+.newsletter input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  padding: 15px 0;
+  background: transparent;
+  color: inherit;
+  outline: 0;
+}
+
+.newsletter button {
+  margin: 0;
+  border: 0;
+  color: #f5eee8;
+  cursor: pointer;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(3, 1fr);
+  gap: clamp(28px, 5vw, 70px);
+  padding: 44px clamp(18px, 5vw, 70px) 54px;
+  border-top: 1px solid rgba(245, 238, 232, 0.14);
+}
+
+.footer-company h3,
+.footer-list h4 {
+  margin: 0 0 18px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-company p,
+.footer-list a {
+  display: block;
+  margin: 0 0 11px;
+  color: rgba(245, 238, 232, 0.68);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px clamp(18px, 5vw, 70px);
+  border-top: 1px solid rgba(245, 238, 232, 0.14);
+  color: rgba(245, 238, 232, 0.72);
+  font-size: 11px;
+}
+
+.socials {
+  display: flex;
+  gap: 14px;
+}
+
+.floating-contact {
+  position: fixed;
+  right: 18px;
+  bottom: 22px;
+  z-index: 30;
+  display: grid;
+  gap: 9px;
+}
+
+.floating-contact a {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--lacquer);
+  color: #fffaf6;
+  box-shadow: 0 10px 24px rgba(35, 31, 32, 0.22);
+  font-weight: 700;
+}

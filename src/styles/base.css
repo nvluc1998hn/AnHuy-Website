@@ -1,0 +1,130 @@
+:root {
+  --ink: #231f20;
+  --muted: #77716d;
+  --paper: #f6f0eb;
+  --soft: #ebe2d9;
+  --line: #d9cec4;
+  --lacquer: #7f1716;
+  --gold: #b28a55;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #fffaf6;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.mega-image img,
+.product-image img,
+.pick-media img,
+.furniture-frame img,
+.story-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 850ms ease, opacity 400ms ease;
+}
+
+.hero-overlay a,
+.furniture-text a,
+.newsletter button {
+  width: fit-content;
+  margin-top: 34px;
+  border: 1px solid currentColor;
+  padding: 13px 30px;
+  background: transparent;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+}
+
+.hero-overlay a:hover,
+.furniture-text a:hover,
+.newsletter button:hover {
+  background: currentColor;
+  color: var(--ink);
+}
+
+.image-fallback {
+  opacity: 0;
+}
+
+.image-fallback::before,
+.product-image:has(.image-fallback)::before,
+.pick-media:has(.image-fallback)::before,
+.furniture-frame:has(.image-fallback)::before,
+.story-card:has(.image-fallback)::before,
+.mega-image:has(.image-fallback)::before {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, rgba(127, 23, 23, 0.15), rgba(178, 138, 85, 0.15)),
+    var(--soft);
+  color: rgba(35, 31, 32, 0.45);
+  content: "ANHUY";
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.2em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 640ms ease, transform 640ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.app-error {
+  min-height: 52vh;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  color: var(--ink);
+  text-align: center;
+}
+
+.app-error h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 500;
+}
+
+.app-error p {
+  max-width: 420px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}

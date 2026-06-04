@@ -1,0 +1,310 @@
+@media (max-width: 1180px) {
+  .site-header {
+    height: 70px;
+  }
+
+  .mega-menu {
+    grid-template-columns: 210px minmax(360px, 1fr) 300px;
+    padding: 0 24px;
+  }
+
+  .mega-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero,
+  .hero-overlay {
+    min-height: calc(100vh - 102px);
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(260px, 34vw);
+  }
+
+  .pick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  .topbar {
+    justify-content: space-around;
+    gap: 12px;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+
+  .topbar a + a::before {
+    display: none;
+  }
+
+  .site-header {
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    padding: 0 12px;
+    background: rgba(255, 250, 246, 0.9);
+  }
+
+  .brand {
+    justify-self: center;
+    font-size: 29px;
+  }
+
+  .header-actions {
+    gap: 7px;
+  }
+
+  .icon-button,
+  .cart-button {
+    min-width: 38px;
+    height: 38px;
+  }
+
+  .cart-button {
+    padding: 0;
+  }
+
+  .cart-button span {
+    display: none;
+  }
+
+  .hero-overlay {
+    margin-left: 22px;
+    padding-bottom: 130px;
+  }
+
+  .hero-overlay h1 {
+    max-width: 420px;
+  }
+
+  .product-grid,
+  .pick-grid,
+  .story,
+  .story-grid,
+  .furniture {
+    grid-template-columns: 1fr;
+  }
+
+  .top-picks {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .best-seller {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .product-grid {
+    grid-auto-rows: minmax(330px, 72vw);
+    gap: 14px;
+  }
+
+  .product-tile.featured {
+    grid-row: auto;
+  }
+
+  .detail-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-media {
+    min-height: 360px;
+  }
+
+  .detail-copy {
+    padding: 30px 22px 34px;
+  }
+
+  .furniture-gallery {
+    grid-template-rows: 180px 180px;
+  }
+
+  .story-card {
+    min-height: 430px;
+  }
+
+  .partners-section {
+    padding: 20px 18px 34px;
+  }
+
+  .partners-title {
+    grid-template-columns: 1fr auto auto 1fr;
+    gap: 9px;
+  }
+
+  .partners-title i:last-of-type {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar a:nth-child(2) {
+    display: none;
+  }
+
+  .site-header {
+    height: 64px;
+    box-shadow: 0 10px 26px rgba(35, 31, 32, 0.08);
+  }
+
+  .brand {
+    font-size: 25px;
+    letter-spacing: 0.18em;
+  }
+
+  .header-actions .icon-button.sm\:grid {
+    display: none !important;
+  }
+
+  .hero,
+  .hero-overlay {
+    min-height: 680px;
+  }
+
+  .hero-overlay {
+    justify-content: end;
+    margin-left: 18px;
+    padding-bottom: 110px;
+  }
+
+  .hero-overlay span {
+    font-size: 14px;
+  }
+
+  .hero-controls {
+    left: 18px;
+    right: auto;
+    bottom: 28px;
+  }
+
+  .section {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .top-picks {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .best-seller {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 310px;
+  }
+
+  .detail-layer {
+    padding: 10px;
+  }
+
+  .detail-copy dl div {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .detail-actions a,
+  .detail-actions button {
+    width: 100%;
+  }
+
+  .pick-card {
+    grid-template-rows: auto 58px;
+    min-height: 0;
+  }
+
+  .pick-media {
+    aspect-ratio: 1.35 / 1;
+    min-height: 0;
+  }
+
+  .furniture-gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 250px);
+  }
+
+  .frame-1 {
+    grid-row: auto;
+  }
+
+  .story {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .partners-section {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .partners-shell {
+    padding: 18px 14px 22px;
+  }
+
+  .partners-title h2 {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  .partners-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 14px;
+  }
+
+  .footer-grid,
+  .footer-bottom {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+}
+
+/* Tailwind-like display helpers used by the React markup.
+   Kept last so component display rules cannot accidentally override them. */
+.hidden {
+  display: none !important;
+}
+
+@media (min-width: 640px) {
+  .sm\:grid {
+    display: grid !important;
+  }
+
+  .sm\:inline {
+    display: inline !important;
+  }
+
+  .header-actions .language.sm\:inline {
+    display: inline-flex !important;
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:inline {
+    display: inline !important;
+  }
+
+  .header-actions .login.md\:inline {
+    display: inline-flex !important;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:flex {
+    display: flex !important;
+  }
+
+  .lg\:hidden {
+    display: none !important;
+  }
+}
