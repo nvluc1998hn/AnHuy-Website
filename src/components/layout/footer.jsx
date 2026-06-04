@@ -27,15 +27,37 @@ function FooterList({ title, items }) {
   );
 }
 
+function FooterMap({ address }) {
+  const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&z=15&output=embed`;
+  const openUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+
+  return (
+    <aside className="footer-map-card" aria-label="Bản đồ vị trí An Huy">
+      <iframe
+        src={mapUrl}
+        title="Bản đồ An Huy"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      />
+      <a href={openUrl} target="_blank" rel="noreferrer">
+        Xem bản đồ
+        <FooterIcon name="right" size={13} />
+      </a>
+    </aside>
+  );
+}
+
 function Footer() {
   const support = ['Liên hệ', 'Hệ thống cửa hàng', 'Hướng dẫn bảo quản', 'Chính sách đổi hàng', 'Chính sách bảo hành', 'Chính sách giao hàng', 'FAQs'];
   const legal = ['Điều khoản sử dụng', 'Chính sách bảo vệ dữ liệu cá nhân', 'Chính sách Cookie'];
+  const companyAddress = 'Lô 10 Làng Nghề Duyên Thái, Thành phố Hà Nội, Việt Nam';
 
   return (
     <footer className="site-footer">
       <button className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
         Back to top
       </button>
+      <FooterMap address={companyAddress} />
       <div className="newsletter reveal">
         <h2>Đăng ký bản tin</h2>
         <p>Đăng ký nhận bản tin để nhận thông tin về sản phẩm mới, ưu đãi đặc biệt, các khuyến mãi độc quyền và nhiều hơn nữa.</p>
@@ -48,7 +70,7 @@ function Footer() {
       <div className="footer-grid">
         <div className="footer-company">
           <h3>Công ty TNHH An Huy</h3>
-          <p>Lô 10 Làng Nghề Duyên Thái, Thành phố Hà Nội, Việt Nam</p>
+          <p>{companyAddress}</p>
           <p>MST: 0108062837</p>
           <p>Thương hiệu An Huy </p>
         </div>

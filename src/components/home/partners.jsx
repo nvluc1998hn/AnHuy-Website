@@ -1,10 +1,8 @@
 (function () {
 const { useEffect: partnersUseEffect, useState: partnersUseState } = React;
 
-function getPartnerVisibleLimit() {
-  const width = window.innerWidth;
-  if (width <= 560) return 3;
-  if (width <= 820) return 4;
+function getPartnerVisibleLimit(width = window.innerWidth) {
+  if (width <= 820) return 1;
   if (width <= 1180) return 5;
   return 6;
 }
@@ -21,6 +19,7 @@ function PartnerLogo({ partner, duplicate }) {
 function PartnersSection() {
   const [partners, setPartners] = partnersUseState([]);
   const [shouldMarquee, setShouldMarquee] = partnersUseState(false);
+  const [viewportWidth, setViewportWidth] = partnersUseState(() => window.innerWidth);
 
   partnersUseEffect(() => {
     let active = true;
@@ -39,7 +38,9 @@ function PartnersSection() {
 
   partnersUseEffect(() => {
     function updateMarqueeMode() {
-      setShouldMarquee(partners.length > getPartnerVisibleLimit());
+      const width = window.innerWidth;
+      setViewportWidth(width);
+      setShouldMarquee(partners.length > getPartnerVisibleLimit(width));
     }
 
     updateMarqueeMode();
@@ -50,7 +51,7 @@ function PartnersSection() {
   if (!partners.length) return null;
 
   const displayPartners = shouldMarquee ? [...partners, ...partners] : partners;
-  const marqueeDuration = `${Math.max(24, partners.length * 4)}s`;
+  const marqueeDuration = `${Math.max(viewportWidth <= 820 ? 14 : 24, partners.length * (viewportWidth <= 820 ? 2.6 : 4))}s`;
 
   return (
     <section className="partners-section">

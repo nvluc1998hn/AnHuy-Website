@@ -252,12 +252,20 @@
 
   .partners-title h2 {
     font-size: 13px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
   }
 
   .partners-track {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px 14px;
+  }
+
+  .partners-list.is-marquee .partners-track {
+    gap: 34px;
+  }
+
+  .partners-list.is-marquee .partner-logo {
+    flex-basis: 118px;
   }
 
   .footer-grid,

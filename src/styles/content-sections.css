@@ -394,14 +394,3 @@
     transform: translateX(0);
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .partners-list.is-marquee {
-    overflow-x: auto;
-    mask-image: none;
-  }
-
-  .partners-list.is-marquee .partners-track {
-    animation: none;
-  }
-}
