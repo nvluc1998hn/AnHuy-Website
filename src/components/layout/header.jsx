@@ -162,7 +162,7 @@ function Header() {
         </nav>
 
         <a href="#" className="brand" aria-label="AnHuy home">
-          AnHuy
+          <img src="/src/assets/Lo_go_an_huy.png?v=transparent" alt="An Huy" />
         </a>
 
         <div className="header-actions">

@@ -44,16 +44,27 @@
 }
 
 .brand {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(27px, 3.7vw, 39px);
-  letter-spacing: 0.22em;
-  line-height: 1;
-  transform: translateX(0.11em);
-  transition: color 220ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  min-width: clamp(130px, 14vw, 190px);
+  height: 56px;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.brand img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: clamp(128px, 13vw, 182px);
+  max-height: 46px;
+  object-fit: contain;
 }
 
 .brand:hover {
-  color: var(--lacquer);
+  opacity: 0.8;
+  transform: translateY(-1px);
 }
 
 .nav-primary {

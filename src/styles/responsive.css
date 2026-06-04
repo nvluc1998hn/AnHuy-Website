@@ -52,7 +52,13 @@
 
   .brand {
     justify-self: center;
-    font-size: 29px;
+    min-width: 126px;
+    height: 48px;
+  }
+
+  .brand img {
+    max-width: 126px;
+    max-height: 38px;
   }
 
   .header-actions {
@@ -154,8 +160,13 @@
   }
 
   .brand {
-    font-size: 25px;
-    letter-spacing: 0.18em;
+    min-width: 108px;
+    height: 44px;
+  }
+
+  .brand img {
+    max-width: 108px;
+    max-height: 34px;
   }
 
   .header-actions .icon-button.sm\:grid {
