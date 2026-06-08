@@ -1,287 +1,245 @@
 .passion-page {
-  padding: clamp(18px, 3vw, 34px);
+  min-height: calc(100vh - 108px);
+  padding: clamp(10px, 1.25vw, 18px);
   background:
-    radial-gradient(circle at 16% 0%, rgba(178, 138, 85, 0.08), transparent 32%),
-    #fffaf6;
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.9), rgba(248, 241, 234, 0) 34%),
+    linear-gradient(180deg, #fbf6ef 0%, #f5ece3 100%);
+  color: #2d2420;
 }
 
-.passion-hero {
-  position: relative;
-  min-height: min(720px, calc(100vh - 138px));
+.intro-shell {
+  width: min(100%, 1160px);
+  margin: 0 auto;
   overflow: hidden;
-  border-radius: 8px;
-  background: var(--soft);
-  box-shadow: 0 18px 48px rgba(35, 31, 32, 0.08);
+  border: 1px solid rgba(205, 185, 163, 0.76);
+  background: rgba(255, 250, 245, 0.78);
+  box-shadow: 0 22px 62px rgba(63, 48, 34, 0.08);
 }
 
-.passion-hero img,
-.passion-quote img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.intro-main {
+  display: grid;
+  grid-template-columns: minmax(440px, 0.54fr) minmax(420px, 0.46fr);
+  gap: 4px;
+  padding: 4px 4px 0;
 }
 
-.passion-hero::after {
-  position: absolute;
-  inset: 0;
+.intro-copy {
+  display: grid;
+  align-content: start;
+  padding: clamp(38px, 4.6vw, 62px) clamp(28px, 3vw, 42px) clamp(24px, 2.4vw, 32px);
   background:
-    linear-gradient(90deg, #fffaf6 0%, rgba(255, 250, 246, 0.96) 28%, rgba(255, 250, 246, 0.7) 45%, rgba(255, 250, 246, 0.05) 70%),
-    linear-gradient(180deg, rgba(35, 31, 32, 0.04), rgba(35, 31, 32, 0.16));
-  content: "";
+    radial-gradient(circle at 50% 7%, rgba(183, 122, 53, 0.08), rgba(255, 250, 245, 0) 26%),
+    rgba(255, 250, 245, 0.82);
 }
 
-.passion-hero-copy {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: min(540px, 55%);
-  min-height: inherit;
-  padding: clamp(34px, 5vw, 72px) clamp(28px, 5vw, 62px);
-}
-
-.passion-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.intro-copy > svg {
+  justify-self: center;
   margin-bottom: 22px;
-  color: #c58f21;
-  text-transform: uppercase;
+  color: #b77a35;
+  stroke-width: 1.5;
 }
 
-.passion-eyebrow span {
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.passion-hero h1 {
+.intro-copy h1 {
   margin: 0;
-  color: #2f211d;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(54px, 8vw, 86px);
-  font-weight: 600;
-  line-height: 0.96;
-  text-transform: uppercase;
-}
-
-.passion-hero-copy i {
-  display: block;
-  width: 58px;
-  height: 3px;
-  margin: 34px 0 26px;
-  background: #c58f21;
-}
-
-.passion-hero p {
-  margin: 0 0 24px;
-  color: #2f2825;
-  font-size: 16px;
-  line-height: 1.8;
-}
-
-.passion-journey {
-  padding: clamp(36px, 5vw, 58px) 0 28px;
-}
-
-.passion-heading {
-  display: grid;
-  grid-template-columns: minmax(30px, 1fr) auto minmax(30px, 1fr);
-  align-items: center;
-  gap: 28px;
-  margin-bottom: 28px;
-  color: #c58f21;
-}
-
-.passion-heading span {
-  height: 1px;
-  background: rgba(197, 143, 33, 0.48);
-}
-
-.passion-heading h2 {
-  margin: 0;
-  font-size: clamp(18px, 2vw, 25px);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-size: clamp(34px, 4.4vw, 50px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
   text-align: center;
+  text-transform: uppercase;
 }
 
-.journey-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(14px, 1.7vw, 22px);
+.intro-title-line {
+  position: relative;
+  display: block;
+  width: min(100%, 260px);
+  height: 1px;
+  margin: 26px auto 24px;
+  background: rgba(183, 122, 53, 0.26);
 }
 
-.journey-card {
-  display: grid;
-  grid-template-rows: auto auto 240px 1fr auto;
-  min-height: 640px;
-}
-
-.journey-number {
+.intro-title-line::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   display: grid;
   place-items: center;
-  justify-self: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #dca022, #b9780c);
-  color: #fffaf6;
-  font-weight: 700;
+  width: 32px;
+  height: 20px;
+  background: #fffaf5;
+  color: #9c6b2f;
+  content: "✽";
+  font-size: 15px;
+  transform: translate(-50%, -50%);
 }
 
-.journey-card h3 {
-  min-height: 54px;
-  margin: 14px 0 18px;
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.25;
-  text-align: center;
-  text-transform: uppercase;
+.intro-copy p {
+  margin: 0 0 15px;
+  color: rgba(45, 36, 32, 0.86);
+  font-size: 13px;
+  line-height: 1.85;
 }
 
-.journey-image {
+.intro-copy p:first-of-type {
+  margin-bottom: 18px;
+}
+
+.intro-media {
+  display: grid;
+  grid-template-rows: minmax(420px, 1fr) 190px;
+  gap: 4px;
+}
+
+.intro-media-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.intro-image {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
   overflow: hidden;
-  border-radius: 6px 6px 0 0;
-  background: var(--soft);
+  background: #e9ded2;
 }
 
-.journey-image img {
+.intro-image img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 620ms ease;
 }
 
-.journey-card p {
-  margin: 0;
-  padding: 24px 18px;
-  background: rgba(255, 250, 246, 0.88);
-  color: #2f2825;
-  font-size: 15px;
-  line-height: 1.75;
-  box-shadow: inset 0 1px 0 rgba(178, 138, 85, 0.1);
+.intro-image:hover img {
+  transform: scale(1.035);
 }
 
-.journey-icon {
+.intro-hero-image img {
+  object-position: center center;
+}
+
+.intro-product-strip {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 10px;
-  padding: 18px 10px 24px;
-  border-radius: 0 0 6px 6px;
-  background: rgba(255, 250, 246, 0.88);
-  color: #c58f21;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px 4px 0;
 }
 
-.journey-icon span {
-  height: 1px;
-  background: rgba(197, 143, 33, 0.42);
+.intro-product-strip .intro-image {
+  aspect-ratio: 1.35 / 1;
 }
 
-.journey-icon svg {
-  width: 54px;
-  height: 54px;
-  padding: 12px;
-  border: 1px solid rgba(197, 143, 33, 0.66);
-  border-radius: 999px;
+.intro-values {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 8px;
+  padding: 24px 16px 28px;
+  background: rgba(255, 250, 245, 0.9);
+  border-top: 1px solid rgba(205, 185, 163, 0.64);
 }
 
-.passion-quote {
-  position: relative;
-  min-height: 270px;
-  overflow: hidden;
-  border-radius: 8px;
-  background: var(--soft);
+.intro-value {
+  display: grid;
+  justify-items: center;
+  padding: 0 clamp(10px, 1.5vw, 18px);
+  border-right: 1px solid rgba(205, 185, 163, 0.62);
+  text-align: center;
 }
 
-.passion-quote::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255, 250, 246, 0.96), rgba(255, 250, 246, 0.8) 35%, rgba(255, 250, 246, 0.08) 72%);
-  content: "";
+.intro-value:last-child {
+  border-right: 0;
 }
 
-.passion-quote blockquote {
-  position: relative;
-  z-index: 1;
-  width: min(430px, 70%);
+.intro-value svg {
+  margin-bottom: 12px;
+  color: #b77a35;
+  stroke-width: 1.45;
+}
+
+.intro-value h2 {
+  min-height: 34px;
   margin: 0;
-  padding: 58px clamp(28px, 7vw, 96px);
-  color: #2f2825;
-  font-size: 19px;
-  font-style: italic;
-  line-height: 1.45;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.35;
+  text-transform: uppercase;
 }
 
-.passion-quote blockquote::before {
-  display: block;
-  margin-bottom: 4px;
-  color: #c58f21;
-  content: "“";
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 68px;
-  font-style: normal;
-  line-height: 0.7;
+.intro-value p {
+  max-width: 135px;
+  margin: 8px 0 0;
+  color: rgba(45, 36, 32, 0.68);
+  font-size: 10px;
+  line-height: 1.55;
 }
 
-@media (max-width: 1180px) {
-  .journey-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 980px) {
+  .intro-shell {
+    width: min(100%, 820px);
   }
 
-  .journey-card {
-    min-height: 0;
-  }
-}
-
-@media (max-width: 820px) {
-  .passion-hero {
-    min-height: 760px;
-  }
-
-  .passion-hero-copy {
-    width: 100%;
-    min-height: 760px;
-    justify-content: end;
-    background: linear-gradient(180deg, rgba(255, 250, 246, 0.2), rgba(255, 250, 246, 0.98) 42%);
-  }
-
-  .passion-hero::after {
-    background: linear-gradient(180deg, rgba(255, 250, 246, 0.05), rgba(255, 250, 246, 0.96) 52%);
-  }
-
-  .passion-heading {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .journey-grid {
+  .intro-main {
     grid-template-columns: 1fr;
   }
 
-  .journey-card {
-    grid-template-rows: auto auto 280px auto auto;
+  .intro-media {
+    grid-template-rows: 420px 190px;
   }
 
-  .passion-quote blockquote {
-    width: 100%;
+  .intro-values {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 0;
+  }
+
+  .intro-value:nth-child(3n) {
+    border-right: 0;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 680px) {
   .passion-page {
     padding: 12px;
   }
 
-  .passion-hero h1 {
-    font-size: 48px;
+  .intro-copy {
+    padding: 36px 22px 28px;
   }
 
-  .passion-hero p,
-  .journey-card p {
-    font-size: 14px;
+  .intro-copy h1 {
+    font-size: clamp(32px, 10vw, 42px);
+  }
+
+  .intro-media,
+  .intro-media-row,
+  .intro-product-strip,
+  .intro-values {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-media {
+    grid-template-rows: 340px auto;
+  }
+
+  .intro-media-row .intro-image,
+  .intro-product-strip .intro-image {
+    aspect-ratio: 1.35 / 1;
+  }
+
+  .intro-values {
+    padding: 10px 18px 14px;
+  }
+
+  .intro-value,
+  .intro-value:nth-child(3n) {
+    padding: 20px 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(205, 185, 163, 0.62);
+  }
+
+  .intro-value:last-child {
+    border-bottom: 0;
   }
 }

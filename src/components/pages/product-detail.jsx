@@ -8,6 +8,8 @@ const emptyProduct = {
   name: 'Sản phẩm',
   slug: '',
   description: '',
+  care_guide: '',
+  return_policy: '',
   price: 0,
   categories: [],
   images: [],
@@ -78,6 +80,8 @@ function ProductDetail({ route }) {
   const productType = categoryNames.find((name) => name.toLowerCase().includes('khay') && name !== 'Khay') || categoryNames[0] || 'An Huy';
   const gallery = product.images.length ? product.images : [selectedImage].filter(Boolean);
   const description = product.description || 'Thông tin sản phẩm đang được cập nhật.';
+  const careGuide = product.care_guide || 'Hướng dẫn bảo quản sản phẩm đang được cập nhật.';
+  const returnPolicy = product.return_policy || 'Chính sách đổi trả sản phẩm đang được cập nhật.';
 
   if (!loading && !product.id) {
     return (
@@ -192,11 +196,11 @@ function ProductDetail({ route }) {
           </section>
           <details>
             <summary>Hướng dẫn bảo quản</summary>
-            <p>{product.material || description}</p>
+            <p>{careGuide}</p>
           </details>
           <details>
             <summary>Chính sách đổi trả</summary>
-            <p>{product.collection || description}</p>
+            <p>{returnPolicy}</p>
           </details>
           <details>
             <summary>Giao hàng & thanh toán</summary>

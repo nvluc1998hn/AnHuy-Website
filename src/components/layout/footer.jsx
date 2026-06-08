@@ -27,9 +27,10 @@ function FooterList({ title, items }) {
   );
 }
 
-function FooterMap({ address }) {
-  const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&z=15&output=embed`;
-  const openUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+function FooterMap({ address, mapQuery, placeUrl }) {
+  const query = mapQuery || address;
+  const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=17&output=embed`;
+  const openUrl = placeUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
   return (
     <aside className="footer-map-card" aria-label="Bản đồ vị trí An Huy">
@@ -50,14 +51,16 @@ function FooterMap({ address }) {
 function Footer() {
   const support = ['Liên hệ', 'Hệ thống cửa hàng', 'Hướng dẫn bảo quản', 'Chính sách đổi hàng', 'Chính sách bảo hành', 'Chính sách giao hàng', 'FAQs'];
   const legal = ['Điều khoản sử dụng', 'Chính sách bảo vệ dữ liệu cá nhân', 'Chính sách Cookie'];
-  const companyAddress = 'Lô 10 Làng Nghề Duyên Thái, Thành phố Hà Nội, Việt Nam';
+  const companyAddress = 'Sơn mài An Huy, Duyên Thái, Thường Tín, Hà Nội, Việt Nam';
+  const companyMapQuery = '20.9024287,105.8648024';
+  const companyMapUrl = 'https://www.google.com/maps/place/S%C6%A1n+m%C3%A0i+An+Huy/@20.9024287,105.8648024,1053m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3135b35c21449d39:0xb3d34e9a841a4130!8m2!3d20.9024287!4d105.8648024!16s%2Fg%2F11pld76746!18m1!1e1?entry=ttu';
 
   return (
     <footer className="site-footer">
       <button className="back-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
         Back to top
       </button>
-      <FooterMap address={companyAddress} />
+      <FooterMap address={companyAddress} mapQuery={companyMapQuery} placeUrl={companyMapUrl} />
       <div className="newsletter reveal">
         <h2>Đăng ký bản tin</h2>
         <p>Đăng ký nhận bản tin để nhận thông tin về sản phẩm mới, ưu đãi đặc biệt, các khuyến mãi độc quyền và nhiều hơn nữa.</p>

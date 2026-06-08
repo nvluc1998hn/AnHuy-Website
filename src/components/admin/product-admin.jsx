@@ -12,6 +12,8 @@ const emptyForm = {
   collection: '',
   material: '',
   size: '',
+  care_guide: '',
+  return_policy: '',
   status: 'draft',
   is_featured: false,
   sort_order: 0,
@@ -47,6 +49,8 @@ function buildForm(product) {
     collection: product.collection || '',
     material: product.material || '',
     size: product.size || '',
+    care_guide: product.care_guide || '',
+    return_policy: product.return_policy || '',
     status: product.status || 'draft',
     is_featured: Boolean(product.is_featured),
     sort_order: product.sort_order || 0,
@@ -411,6 +415,16 @@ function ProductAdmin() {
           <label>
             Mô tả
             <textarea rows="4" value={form.description} onChange={(event) => updateField('description', event.target.value)} />
+          </label>
+
+          <label>
+            Hướng dẫn bảo quản
+            <textarea rows="4" value={form.care_guide} onChange={(event) => updateField('care_guide', event.target.value)} placeholder="Lau bằng khăn mềm, tránh ngâm nước, tránh ánh nắng trực tiếp..." />
+          </label>
+
+          <label>
+            Chính sách đổi trả
+            <textarea rows="4" value={form.return_policy} onChange={(event) => updateField('return_policy', event.target.value)} placeholder="Đổi trả trong 7 ngày nếu sản phẩm lỗi do nhà sản xuất..." />
           </label>
 
           <div className="admin-form-grid">

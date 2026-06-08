@@ -61,7 +61,7 @@
 
   async function getProducts() {
     const products = await fetchJson(
-      'products?select=id,category_id,name,slug,description,price,collection,material,size,status,is_featured,sort_order,created_at,updated_at&order=created_at.desc',
+      'products?select=id,category_id,name,slug,description,price,collection,material,size,care_guide,return_policy,status,is_featured,sort_order,created_at,updated_at&order=created_at.desc',
     );
 
     if (!products.length) return [];
@@ -85,6 +85,8 @@
       collection: form.collection || null,
       material: form.material || null,
       size: form.size || null,
+      care_guide: form.care_guide || null,
+      return_policy: form.return_policy || null,
       status: form.status || 'draft',
       is_featured: Boolean(form.is_featured),
       sort_order: Number(form.sort_order || 0),

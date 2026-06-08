@@ -42,7 +42,7 @@
     if (!hasSupabaseConfig() || !slug) return null;
 
     const products = await fetchJson(
-      `products?select=id,category_id,name,slug,description,price,collection,material,size,status,created_at&slug=eq.${encodeURIComponent(slug)}&status=eq.published&limit=1`,
+      `products?select=id,category_id,name,slug,description,price,collection,material,size,care_guide,return_policy,status,created_at&slug=eq.${encodeURIComponent(slug)}&status=eq.published&limit=1`,
     );
     const product = products[0];
     if (!product) return null;

@@ -27,6 +27,8 @@ function handleOptions(event) {
 }
 
 function getEnvStatus() {
+  const supabasePublishableKey = getSupabasePublishableKey();
+
   return {
     cloudflareAccountId: Boolean(process.env.CLOUDFLARE_ACCOUNT_ID),
     r2BucketName: Boolean(process.env.R2_BUCKET_NAME),
@@ -34,7 +36,7 @@ function getEnvStatus() {
     r2SecretAccessKey: Boolean(process.env.R2_SECRET_ACCESS_KEY),
     r2PublicBaseUrl: Boolean(process.env.R2_PUBLIC_BASE_URL),
     supabaseUrl: Boolean(process.env.SUPABASE_URL),
-    supabasePublishableKey: Boolean(process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY),
+    supabasePublishableKey: Boolean(supabasePublishableKey),
     readyForR2Upload: Boolean(
       process.env.CLOUDFLARE_ACCOUNT_ID
         && process.env.R2_BUCKET_NAME
@@ -42,6 +44,18 @@ function getEnvStatus() {
         && process.env.R2_SECRET_ACCESS_KEY,
     ),
   };
+}
+
+function getSupabasePublishableKey() {
+  return (
+    process.env.SUPABASE_PUBLISHABLE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.VITE_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    ""
+  );
 }
 
 function requireR2Config() {
@@ -62,10 +76,13 @@ async function requireAuthenticatedUser(event) {
   }
 
   const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/$/, "");
-  const supabaseKey = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY;
+  const supabaseKey = getSupabasePublishableKey();
 
   if (!supabaseUrl || !supabaseKey) {
-    throw Object.assign(new Error("Supabase auth config is missing on the server."), { statusCode: 500 });
+    throw Object.assign(
+      new Error("Supabase auth config is missing on the server. Add SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY in Netlify environment variables, then redeploy."),
+      { statusCode: 500 },
+    );
   }
 
   const response = await fetch(`${supabaseUrl}/auth/v1/user`, {

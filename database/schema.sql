@@ -37,6 +37,8 @@ create table if not exists products (
   collection text,
   material text,
   size text,
+  care_guide text,
+  return_policy text,
   status text check (status in ('draft', 'published', 'archived')) default 'draft',
   is_featured boolean default false,
   sort_order int default 0,

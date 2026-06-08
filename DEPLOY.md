@@ -20,6 +20,8 @@ R2_SECRET_ACCESS_KEY=xxx
 R2_PUBLIC_BASE_URL=https://pub-xxx.r2.dev
 ```
 
+`SUPABASE_PUBLISHABLE_KEY` là key public dùng để Netlify Function xác thực access token của admin trước khi xóa ảnh trên R2. Nếu thiếu biến này, các thao tác xóa ảnh sẽ báo lỗi server auth config.
+
 `/api/r2-presign`, `/api/r2-delete`, `/api/env-status` sẽ được route qua Netlify Functions nhờ `netlify.toml`.
 
 ## Cloudflare R2 CORS
