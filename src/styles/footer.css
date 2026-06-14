@@ -1,7 +1,42 @@
 .site-footer {
   position: relative;
-  background: #2c2521;
+  isolation: isolate;
+  overflow: hidden;
+  background: #161311;
   color: #f5eee8;
+}
+
+/* Ảnh nền hình tròn (hoa văn trống đồng) xoay chậm phía sau nội dung footer. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: min(150vh, 1500px);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  background: url("https://quatang01.themeweb4s.com/templates/fashion03/assets/img/bg-footer.png")
+    center / contain no-repeat;
+  opacity: 0.5;
+  pointer-events: none;
+  will-change: transform;
+  animation: footer-bg-spin 70s linear infinite;
+}
+
+@keyframes footer-bg-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer::before {
+    animation: none;
+  }
 }
 
 .back-top {
@@ -20,16 +55,16 @@
 .newsletter {
   display: grid;
   justify-items: center;
-  padding: clamp(48px, 7vw, 80px) 18px;
+  padding: clamp(26px, 4vw, 46px) 18px;
   text-align: center;
 }
 
 .footer-map-card {
   position: absolute;
-  top: 72px;
-  right: clamp(32px, 6vw, 112px);
+  top: 58px;
+  right: clamp(16px, 2vw, 28px);
   z-index: 2;
-  width: clamp(360px, 22vw, 440px);
+  width: clamp(300px, 22vw, 380px);
   overflow: hidden;
   border: 1px solid rgba(245, 238, 232, 0.2);
   background: rgba(44, 37, 33, 0.88);
@@ -71,7 +106,7 @@
 .newsletter form {
   display: flex;
   width: min(520px, 100%);
-  margin-top: 26px;
+  margin-top: 18px;
   border-bottom: 1px solid rgba(245, 238, 232, 0.66);
 }
 
@@ -95,8 +130,8 @@
 .footer-grid {
   display: grid;
   grid-template-columns: 1.6fr repeat(3, 1fr);
-  gap: clamp(28px, 5vw, 70px);
-  padding: 44px clamp(18px, 5vw, 70px) 54px;
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(26px, 3.5vw, 38px) clamp(18px, 5vw, 70px);
   border-top: 1px solid rgba(245, 238, 232, 0.14);
 }
 
@@ -122,7 +157,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 20px clamp(18px, 5vw, 70px);
+  padding: 15px clamp(18px, 5vw, 70px);
   border-top: 1px solid rgba(245, 238, 232, 0.14);
   color: rgba(245, 238, 232, 0.72);
   font-size: 11px;
@@ -154,6 +189,14 @@
   font-weight: 700;
 }
 
+/* Trên desktop, chừa chỗ bên phải cho thẻ bản đồ ở góc phải trên
+   để chữ "Đăng ký bản tin" không bị thẻ bản đồ đè lên. */
+@media (min-width: 1181px) {
+  .newsletter {
+    padding-right: clamp(360px, 30vw, 440px);
+  }
+}
+
 @media (max-width: 1180px) {
   .footer-map-card {
     position: static;
@@ -162,6 +205,6 @@
   }
 
   .footer-map-card iframe {
-    height: 240px;
+    height: 190px;
   }
 }

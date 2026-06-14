@@ -1,0 +1,7 @@
+{
+  // Live Server: luôn nạp lại toàn bộ trang khi lưu file (kể cả .js/.jsx),
+  // tránh tình trạng trình duyệt giữ code/màn hình cũ trong lúc dev.
+  "liveServer.settings.fullReload": true,
+  // Mở sẵn ở cổng 5500 (đúng cổng bạn đang dùng).
+  "liveServer.settings.port": 5500
+}

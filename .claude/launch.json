@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "live",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "waitfor AnHuyPreviewHold /t 99999"],
+      "port": 5500
+    }
+  ]
+}
