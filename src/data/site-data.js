@@ -1,5 +1,7 @@
 (function () {
   const cdn = "https://dytbw3ui6vsu6.cloudfront.net/media/wysiwyg/";
+  const cdnAnhuy =
+    "https://pub-adb46506c121483a813c92eba32ee898.r2.dev/hero-header/";
   const productCdn =
     "https://dytbw3ui6vsu6.cloudfront.net/media/catalog/product/resize/500x500/Hanoia/";
 
@@ -77,25 +79,16 @@
     ],
     heroSlides: [
       {
-        eyebrow: "FW2026",
-        title: "Nét tỉ mỉ trong sơn mài",
-        copy: "Những lớp màu sâu, đường nét thủ công và tinh thần đương đại trong bộ sưu tập mới.",
-        desktop: `${cdn}Banner_website_FW26_drop_2-01_1.webp`,
-        mobile: `${cdn}Banner_website_FW26_drop_2-02_1.webp`,
+        desktop: `${cdnAnhuy}hero-pic-anhuy-1.jpg`,
+        mobile: `${cdnAnhuy}hero-pic-anhuy-1.jpg`,
       },
       {
-        eyebrow: "FW2026",
-        title: "Sắc độ phân tầng",
-        copy: "Sự tương phản giữa chất liệu truyền thống và hình khối hiện đại.",
-        desktop: `${cdn}Banner_website_FW26_drop_1-01_1_.webp`,
-        mobile: `${cdn}Banner_website_FW26_drop_1-02_2.webp`,
+        desktop: `${cdnAnhuy}hero-pic-anhuy-2.jpg`,
+        mobile: `${cdnAnhuy}hero-pic-anhuy-2.jpg`,
       },
       {
-        eyebrow: "SS2026",
-        title: "Tinh hoa kỹ nghệ",
-        copy: "Đồ trang trí và quà tặng được hoàn thiện bởi bàn tay nghệ nhân.",
-        desktop: `${cdn}Banner_website_SS26_drop_3-01_11zon.webp`,
-        mobile: `${cdn}Banner_website_SS26_drop_3-02_11zon.webp`,
+        desktop: `${cdnAnhuy}hero-pic-anhuy-3.jpg`,
+        mobile: `${cdnAnhuy}hero-pic-anhuy-3.jpg`,
       },
     ],
     products: [
@@ -287,7 +280,8 @@
           title: "Boutique Lacquer Multiplex",
           location: "Hà Nội",
           image: `${cdn}HNA_Menu_2504_NEW.png`,
-          description: "Cung cấp tranh sơn mài và đồ decor cho khu vực lobby & lounge.",
+          description:
+            "Cung cấp tranh sơn mài và đồ decor cho khu vực lobby & lounge.",
         },
         {
           title: "Hotel Maison Resort",
@@ -299,7 +293,8 @@
           title: "Capella Hanoi",
           location: "Hà Nội",
           image: `${cdn}PC_Gift_guide_web_1.jpg`,
-          description: "Cung cấp vật phẩm trang trí nghệ thuật và quà tặng thủ công.",
+          description:
+            "Cung cấp vật phẩm trang trí nghệ thuật và quà tặng thủ công.",
         },
       ],
       services: [

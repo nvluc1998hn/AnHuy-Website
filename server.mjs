@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { createHmac, createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
+import { watch } from "node:fs";
 import { extname, join, normalize } from "node:path";
 
 const root = process.cwd();
@@ -34,7 +35,7 @@ async function loadEnv() {
 
 await loadEnv();
 
-const port = Number(process.env.PORT || 5173);
+const port = Number(process.env.PORT || 3000);
 const host = process.env.HOST || "0.0.0.0";
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -48,6 +49,46 @@ const types = {
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
 };
+
+// --- Live reload (dependency-free) -----------------------------------------
+// Browsers subscribe to /__livereload over Server-Sent Events; a recursive
+// fs.watch on the project pushes a "reload" message (debounced) on any save.
+const liveReloadClients = new Set();
+const liveReloadSnippet = `
+<script>
+(function () {
+  function connect() {
+    var es = new EventSource("/__livereload");
+    es.onmessage = function (event) {
+      if (event.data === "reload") location.reload();
+    };
+    es.onerror = function () {
+      es.close();
+      setTimeout(connect, 1000);
+    };
+  }
+  connect();
+})();
+</script>`;
+
+let reloadTimer = null;
+function notifyReload() {
+  if (reloadTimer) clearTimeout(reloadTimer);
+  reloadTimer = setTimeout(() => {
+    for (const client of liveReloadClients) {
+      client.write("data: reload\n\n");
+    }
+  }, 80);
+}
+
+watch(root, { recursive: true }, (_eventType, fileName) => {
+  if (!fileName) return;
+  const name = String(fileName);
+  if (name.includes(".git") || name.includes("node_modules")) return;
+  if (/\.(html|css|js|jsx|json|svg|png|webp|jpe?g)$/i.test(name)) {
+    notifyReload();
+  }
+});
 
 function sendJson(response, status, data) {
   response.writeHead(status, {
@@ -245,6 +286,18 @@ async function deleteFromR2(storageKey) {
 createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
 
+  if (url.pathname === "/__livereload") {
+    response.writeHead(200, {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    });
+    response.write("retry: 1000\n\n");
+    liveReloadClients.add(response);
+    request.on("close", () => liveReloadClients.delete(response));
+    return;
+  }
+
   if (url.pathname === "/api/env-status") {
     sendJson(response, 200, getEnvStatus());
     return;
@@ -290,9 +343,21 @@ createServer(async (request, response) => {
   const filePath = join(root, cleanPath);
 
   try {
+    const fileExtension = extname(filePath);
+
+    if (fileExtension === ".html") {
+      let html = await readFile(filePath, "utf8");
+      html = html.includes("</body>")
+        ? html.replace("</body>", `${liveReloadSnippet}\n</body>`)
+        : html + liveReloadSnippet;
+      response.writeHead(200, { "Content-Type": types[".html"] });
+      response.end(html);
+      return;
+    }
+
     const body = await readFile(filePath);
     response.writeHead(200, {
-      "Content-Type": types[extname(filePath)] || "application/octet-stream",
+      "Content-Type": types[fileExtension] || "application/octet-stream",
     });
     response.end(body);
   } catch {

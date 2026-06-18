@@ -1,4 +1,9 @@
 {
+  "name": "anhuy-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Buildless React 18 SPA storefront for AnHuy, served by a dependency-free Node static server.",
+  "type": "module",
   "scripts": {
     "dev": "node server.mjs",
     "preview": "node server.mjs",

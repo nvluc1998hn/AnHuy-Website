@@ -415,7 +415,7 @@
   grid-template-columns: minmax(360px, 430px) minmax(0, 1fr);
   gap: 28px;
   align-items: start;
-  height: calc(100vh - 246px);
+  height: calc(100vh - 260px);
   min-height: 520px;
   overflow: hidden;
 }

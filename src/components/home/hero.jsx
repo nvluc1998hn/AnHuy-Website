@@ -28,7 +28,7 @@ function Hero() {
         <p>{slide.eyebrow}</p>
         <h1>{slide.title}</h1>
         <span>{slide.copy}</span>
-        <a href="#best-seller">Khám phá</a>
+        {/* <a href="#best-seller">Khám phá</a> */}
       </div>
       <div className="hero-controls">
         <button aria-label="Slide trước" onClick={() => setActive((active + heroSlides.length - 1) % heroSlides.length)}>

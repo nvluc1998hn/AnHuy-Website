@@ -13,11 +13,12 @@
   top: 50%;
   left: 50%;
   z-index: -1;
-  width: min(150vh, 1500px);
+  /* Hình vuông xoay 360°: vùng phủ chung là hình tròn nội tiếp (đường kính = cạnh).
+     Để không hở góc footer khi xoay, cạnh phải >= đường chéo footer ở mọi khổ desktop. */
+  width: max(220vh, 160vw);
   aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);
-  background: url("https://quatang01.themeweb4s.com/templates/fashion03/assets/img/bg-footer.png")
-    center / contain no-repeat;
+  background: url("/src/assets/footer-img.jpg") center / contain no-repeat;
   opacity: 0.5;
   pointer-events: none;
   will-change: transform;
@@ -187,14 +188,6 @@
   color: #fffaf6;
   box-shadow: 0 10px 24px rgba(35, 31, 32, 0.22);
   font-weight: 700;
-}
-
-/* Trên desktop, chừa chỗ bên phải cho thẻ bản đồ ở góc phải trên
-   để chữ "Đăng ký bản tin" không bị thẻ bản đồ đè lên. */
-@media (min-width: 1181px) {
-  .newsletter {
-    padding-right: clamp(360px, 30vw, 440px);
-  }
 }
 
 @media (max-width: 1180px) {
