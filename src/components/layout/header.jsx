@@ -11,6 +11,34 @@ function getItemLabel(item) {
   return typeof item === 'string' ? item : item.label;
 }
 
+// Nhóm header "Liên hệ" được fix cứng trỏ tới màn hình #contact thay vì mở mega-menu.
+// Các nhóm khác vẫn load mega-menu theo chuẩn chung ban đầu.
+const CONTACT_ROUTE = '#contact';
+function isContactGroup(group) {
+  const title = (group?.title || '').trim().toLowerCase();
+  const slug = (group?.slug || '').trim().toLowerCase();
+  return (
+    title === 'liên hệ' ||
+    title === 'lien he' ||
+    slug === 'lien-he' ||
+    slug === 'contact'
+  );
+}
+
+// Nhóm header "Trang chủ" được fix cứng đưa về trang chủ và cuộn lên đầu trang,
+// kể cả khi đang ở trang chủ. Các nhóm khác vẫn mở mega-menu theo chuẩn chung.
+const HOME_ROUTE = '#';
+function isHomeGroup(group) {
+  const title = (group?.title || '').trim().toLowerCase();
+  const slug = (group?.slug || '').trim().toLowerCase();
+  return (
+    title === 'trang chủ' ||
+    title === 'trang chu' ||
+    slug === 'trang-chu' ||
+    slug === 'home'
+  );
+}
+
 function MenuContent({ group, compact = false }) {
   const menuItems = (group.items || []).filter((item) => !(typeof item !== 'string' && item.isHeading));
 
@@ -102,6 +130,19 @@ function Header() {
     }
   };
 
+  // Về trang chủ và cuộn lên đầu trang. preventDefault để không bị hành vi mặc
+  // định của href="#" xung đột với scrollTo; cuộn thủ công để hoạt động cả khi
+  // đang ở trang chủ (lúc đó hash không đổi nên App không tự cuộn).
+  const goHome = (event) => {
+    if (event) event.preventDefault();
+    setMega(null);
+    setOpen(false);
+    if (window.location.hash && window.location.hash !== HOME_ROUTE) {
+      window.location.hash = '';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const scheduleMegaClose = () => {
     cancelMegaClose();
     const timer = window.setTimeout(() => setMega(null), 180);
@@ -138,7 +179,7 @@ function Header() {
     <>
       <div className="topbar">
         <a href="#">BST ADV FW26</a>
-        <a href="#">Miễn phí vận chuyển toàn quốc</a>
+        <a href="#">TINH HOA SƠN MÀI VIỆT • VẺ ĐẸP VƯỢT THỜI GIAN</a>
       </div>
 
       <header className="site-header" onMouseEnter={cancelMegaClose} onMouseLeave={scheduleMegaClose}>
@@ -147,18 +188,39 @@ function Header() {
         </button>
 
         <nav className="hidden lg:flex nav-primary">
-          {navGroups.slice(0, 7).map((group) => (
-            <button
-              key={group.id || group.title}
-              onMouseEnter={() => {
-                cancelMegaClose();
-                setMega(group);
-              }}
-              className="nav-link"
-            >
-              {group.title}
-            </button>
-          ))}
+          {navGroups.slice(0, 7).map((group) =>
+            isHomeGroup(group) ? (
+              <a
+                key={group.id || group.title}
+                href={HOME_ROUTE}
+                className="nav-link"
+                onMouseEnter={scheduleMegaClose}
+                onClick={goHome}
+              >
+                {group.title}
+              </a>
+            ) : isContactGroup(group) ? (
+              <a
+                key={group.id || group.title}
+                href={CONTACT_ROUTE}
+                className="nav-link"
+                onMouseEnter={scheduleMegaClose}
+              >
+                {group.title}
+              </a>
+            ) : (
+              <button
+                key={group.id || group.title}
+                onMouseEnter={() => {
+                  cancelMegaClose();
+                  setMega(group);
+                }}
+                className="nav-link"
+              >
+                {group.title}
+              </button>
+            ),
+          )}
         </nav>
 
         <a href="#" className="brand" aria-label="AnHuy home">
@@ -194,15 +256,27 @@ function Header() {
           <span>Đóng</span>
         </div>
         <div className="drawer-list" onClick={(event) => event.target.closest('a') && setOpen(false)}>
-          {navGroups.map((group) => (
-            <details key={group.id || group.title}>
-              <summary>
+          {navGroups.map((group) =>
+            isHomeGroup(group) ? (
+              <a className="drawer-link" key={group.id || group.title} href={HOME_ROUTE} onClick={goHome}>
                 {group.title}
                 <Icon name="right" size={16} />
-              </summary>
-              <MenuContent group={group} compact />
-            </details>
-          ))}
+              </a>
+            ) : isContactGroup(group) ? (
+              <a className="drawer-link" key={group.id || group.title} href={CONTACT_ROUTE}>
+                {group.title}
+                <Icon name="right" size={16} />
+              </a>
+            ) : (
+              <details key={group.id || group.title}>
+                <summary>
+                  {group.title}
+                  <Icon name="right" size={16} />
+                </summary>
+                <MenuContent group={group} compact />
+              </details>
+            ),
+          )}
         </div>
         <div className="drawer-bottom">
           <a href="#admin/products">Đăng nhập</a>

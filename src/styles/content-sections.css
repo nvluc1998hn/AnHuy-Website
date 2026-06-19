@@ -394,3 +394,77 @@
     transform: translateX(0);
   }
 }
+
+/* --- Khách hàng (customer gallery) ----------------------------------------- */
+.customer-gallery-head {
+  max-width: 720px;
+  margin: 0 auto clamp(30px, 4vw, 50px);
+  text-align: center;
+}
+
+.customer-gallery-head h2 {
+  margin: 0;
+  color: var(--lacquer);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 3.4vw, 36px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.customer-gallery-line {
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 14px auto 16px;
+  background: var(--gold);
+}
+
+.customer-gallery-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(13px, 1.5vw, 15px);
+}
+
+.customer-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 1.6vw, 22px);
+  width: min(1080px, 100%);
+  margin: 0 auto;
+}
+
+.customer-gallery-item {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 4 / 3;
+  background: var(--soft);
+  box-shadow: 0 12px 30px rgba(35, 31, 32, 0.12);
+}
+
+.customer-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.customer-gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.customer-gallery-item.image-fallback {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .customer-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .customer-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,251 @@
+.contact-page {
+  background: #fffaf6;
+}
+
+.contact-shell {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+  padding: clamp(36px, 5vw, 72px) 0 clamp(48px, 6vw, 90px);
+}
+
+.contact-hero {
+  max-width: 720px;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+  text-align: center;
+  color: var(--lacquer);
+}
+
+.contact-hero h1 {
+  margin: 14px 0 0;
+  color: var(--ink);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.contact-title-line {
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin: 16px auto 18px;
+  background: var(--gold);
+}
+
+.contact-hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.7;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+
+/* --- Cột thông tin --------------------------------------------------------- */
+.contact-info {
+  padding: clamp(22px, 2.6vw, 34px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.contact-info h2,
+.contact-form h2,
+.contact-success h2 {
+  margin: 0 0 20px;
+  font-size: clamp(17px, 2vw, 21px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.contact-info-list {
+  display: grid;
+  gap: 18px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-info-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.contact-info-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(127, 23, 22, 0.08);
+  color: var(--lacquer);
+}
+
+.contact-info-text {
+  display: grid;
+  gap: 3px;
+}
+
+.contact-info-text small {
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.contact-info-text strong {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.contact-info-text a:hover {
+  color: var(--lacquer);
+}
+
+.contact-map {
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: 220px;
+  border: 0;
+  filter: saturate(0.9) contrast(0.96);
+}
+
+/* --- Cột form -------------------------------------------------------------- */
+.contact-form-card {
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid var(--line);
+  background: #fff;
+  box-shadow: 0 20px 48px rgba(35, 31, 32, 0.06);
+}
+
+.contact-form {
+  display: grid;
+  gap: 18px;
+}
+
+.contact-field {
+  display: grid;
+  gap: 7px;
+}
+
+.contact-field > span {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: #fffdfb;
+  color: var(--ink);
+  outline: 0;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.contact-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  border-color: var(--lacquer);
+  box-shadow: 0 0 0 3px rgba(127, 23, 22, 0.1);
+}
+
+.contact-field.has-error input,
+.contact-field.has-error textarea {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+.contact-error {
+  color: #c0392b;
+  font-size: 12px;
+}
+
+.contact-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.contact-submit {
+  justify-self: start;
+  margin-top: 4px;
+  padding: 13px 34px;
+  border: 0;
+  background: var(--lacquer);
+  color: #fffaf6;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.contact-submit:hover {
+  background: #5f1110;
+  transform: translateY(-1px);
+}
+
+/* --- Trạng thái gửi thành công -------------------------------------------- */
+.contact-success {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 320px;
+  text-align: center;
+}
+
+.contact-success-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: rgba(127, 23, 22, 0.08);
+  color: var(--lacquer);
+}
+
+.contact-success p {
+  max-width: 420px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.contact-success strong {
+  color: var(--ink);
+}
+
+@media (max-width: 880px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-field-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,15 +1,83 @@
 (function () {
 const FooterIcon = window.Icon;
+const { useState: footerUseState, useEffect: footerUseEffect } = React;
+
+// Các kênh liên hệ: hiển thị trong bảng khi mở, và luân phiên (chạy) trên nút khi đóng.
+const CONTACT_CHANNELS = [
+  { key: 'phone', label: 'Gọi miễn phí', href: 'tel:0889977118' },
+  { key: 'zalo', label: 'Zalo Chat', href: '#' },
+  { key: 'facebook', label: 'Facebook', href: '#' },
+];
+
+function ChannelGlyph({ channel, size = 22 }) {
+  if (channel === 'facebook') {
+    return (
+      <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" aria-hidden="true">
+        <path d="M13.5 21v-8h2.69l.4-3.12h-3.09V7.9c0-.9.25-1.52 1.54-1.52h1.65V3.59c-.29-.04-1.27-.12-2.42-.12-2.39 0-4.03 1.46-4.03 4.14v2.31H7.5V13h2.74v8h3.26Z" />
+      </svg>
+    );
+  }
+  if (channel === 'zalo') {
+    return <span className="fc-zalo-text">Zalo</span>;
+  }
+  return <FooterIcon name="phone" size={size} />;
+}
 
 function FloatingContact() {
+  const [open, setOpen] = footerUseState(false);
+  const [cycle, setCycle] = footerUseState(0);
+
+  // Khi đóng: luân phiên icon các kênh để thu hút chú ý. Mở thì dừng.
+  footerUseEffect(() => {
+    if (open) return undefined;
+    const id = window.setInterval(
+      () => setCycle((current) => (current + 1) % CONTACT_CHANNELS.length),
+      2000,
+    );
+    return () => window.clearInterval(id);
+  }, [open]);
+
+  const activeChannel = CONTACT_CHANNELS[cycle];
+
   return (
-    <div className="floating-contact">
-      <a href="#" aria-label="Messenger">
-        <FooterIcon name="message" size={19} />
-      </a>
-      <a href="#" aria-label="Zalo">
-        Z
-      </a>
+    <div className={`floating-contact ${open ? 'open' : ''}`}>
+      <div className="fc-panel" role="menu" aria-hidden={!open}>
+        {CONTACT_CHANNELS.map((channel) => (
+          <a
+            className="fc-panel-item"
+            key={channel.key}
+            href={channel.href}
+            role="menuitem"
+            tabIndex={open ? 0 : -1}
+            target={channel.href.startsWith('tel:') ? undefined : '_blank'}
+            rel={channel.href.startsWith('tel:') ? undefined : 'noreferrer'}
+          >
+            <span className="fc-panel-icon">
+              <ChannelGlyph channel={channel.key} size={20} />
+            </span>
+            <span className="fc-panel-label">{channel.label}</span>
+          </a>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        className="fc-toggle"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        aria-label={open ? 'Đóng liên hệ' : 'Liên hệ'}
+      >
+        {open ? (
+          <FooterIcon name="x" size={20} />
+        ) : (
+          <span className="fc-toggle-inner">
+            <span className="fc-toggle-glyph" key={activeChannel.key}>
+              <ChannelGlyph channel={activeChannel.key} size={18} />
+            </span>
+            <span className="fc-toggle-label">Liên hệ</span>
+          </span>
+        )}
+      </button>
     </div>
   );
 }

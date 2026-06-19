@@ -124,7 +124,64 @@ function Story() {
   );
 }
 
+// Khách hàng: lấy ảnh từ featured_section_items của section code "customer-image".
+// Hiển thị tối đa 6 ảnh dạng lưới. Khi DB chưa có ảnh thì ẩn hẳn section.
+function CustomerGallery() {
+  const [section, setSection] = sectionsUseState(null);
+
+  sectionsUseEffect(() => {
+    let active = true;
+    if (!window.FeaturedService?.getFeaturedSection) return () => {};
+
+    window.FeaturedService.getFeaturedSection('customer-image')
+      .then((data) => {
+        if (!active || !data || !Array.isArray(data.items)) return;
+        const items = data.items.filter((item) => item.image).slice(0, 6);
+        if (!items.length) return;
+        setSection({
+          title: 'Khách hàng của An Huy',
+          description: 'Chúng tôi tự hào được đồng hành cùng nhiều đối tác và khách hàng',
+          items,
+        });
+      })
+      .catch((error) => console.warn(error));
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  if (!section) return null;
+
+  return (
+    <section className="section customer-gallery">
+      <div className="customer-gallery-head reveal">
+        <h2>{section.title}</h2>
+        <span className="customer-gallery-line" />
+        <p>{section.description}</p>
+      </div>
+      <div className="customer-gallery-grid">
+        {section.items.map((item, index) => (
+          <figure
+            className="customer-gallery-item reveal"
+            key={item.id || index}
+            style={{ transitionDelay: `${index * 60}ms` }}
+          >
+            <img
+              src={item.image}
+              alt={item.label || 'Khách hàng An Huy'}
+              loading="lazy"
+              onError={(event) => event.currentTarget.closest('.customer-gallery-item').classList.add('image-fallback')}
+            />
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 window.TopPicks = TopPicks;
 window.Furniture = Furniture;
 window.Story = Story;
+window.CustomerGallery = CustomerGallery;
 })();

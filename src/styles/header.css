@@ -566,7 +566,8 @@
   font-size: 12px;
 }
 
-.drawer-list summary {
+.drawer-list summary,
+.drawer-list .drawer-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -574,12 +575,14 @@
   border-bottom: 1px solid rgba(217, 206, 196, 0.75);
   cursor: pointer;
   list-style: none;
+  color: inherit;
   text-transform: uppercase;
   font-size: 13px;
   transition: background 180ms ease, color 180ms ease;
 }
 
-.drawer-list summary:hover {
+.drawer-list summary:hover,
+.drawer-list .drawer-link:hover {
   background: rgba(255, 241, 204, 0.9);
   color: var(--lacquer);
 }

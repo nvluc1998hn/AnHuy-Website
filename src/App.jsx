@@ -45,6 +45,8 @@ function App() {
         <window.Header />
         {route === '#passion' ? (
           <window.PassionDetail />
+        ) : route === '#contact' ? (
+          <window.ContactPage />
         ) : route === '#capacity' ? (
           <window.CapacityDetail />
         ) : route.startsWith('#category/') ? (
@@ -69,7 +71,7 @@ function App() {
             <window.BestSeller />
             <window.TopPicks />
             {window.Furniture && <window.Furniture />}
-            <window.Story />
+            <window.CustomerGallery />
             <window.PartnersSection />
           </>
         )}
