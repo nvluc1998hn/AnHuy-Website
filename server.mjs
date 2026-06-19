@@ -35,7 +35,7 @@ async function loadEnv() {
 
 await loadEnv();
 
-const port = Number(process.env.PORT || 3000);
+const port = Number(process.env.PORT || 5174);
 const host = process.env.HOST || "0.0.0.0";
 const types = {
   ".html": "text/html; charset=utf-8",
