@@ -338,6 +338,8 @@
 }
 
 .admin-products-page {
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - 108px);
   overflow: hidden;
   padding: 34px clamp(18px, 3vw, 46px) 28px;
@@ -414,9 +416,9 @@
   display: grid;
   grid-template-columns: minmax(360px, 430px) minmax(0, 1fr);
   gap: 28px;
-  align-items: start;
-  height: calc(100vh - 260px);
-  min-height: 520px;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
