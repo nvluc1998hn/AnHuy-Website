@@ -94,6 +94,11 @@ function CategoryListing({ route = '#category/khay' }) {
     };
   }, [routeSlug]);
 
+  categoryUseEffect(() => {
+    const name = listing.rootCategory?.name;
+    if (name && name !== 'Danh mục') document.title = `${name} | An Huy`;
+  }, [listing.rootCategory?.name]);
+
   const filters = listing.filters.length ? listing.filters : [listing.rootCategory];
   const activeFilter = filters.find((filter) => filter.slug === activeSlug) || listing.rootCategory;
   const activeFilterId = activeFilter.id || activeFilter.slug;

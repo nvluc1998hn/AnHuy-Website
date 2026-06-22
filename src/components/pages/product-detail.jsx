@@ -23,6 +23,25 @@ function getProductSlug(route) {
   return decodeURIComponent((route || '').replace('#product/', ''));
 }
 
+// Dựng chuỗi breadcrumb từ danh mục thật của sản phẩm: ưu tiên danh mục chính
+// (category_id), rồi lần ngược lên danh mục cha có trong dữ liệu đã tải.
+function buildBreadcrumbTrail(product) {
+  const categories = product.categories || [];
+  if (!categories.length) return [];
+
+  const byId = new Map(categories.map((category) => [category.id, category]));
+  let current = categories.find((category) => category.id === product.category_id) || categories[0];
+
+  const trail = [];
+  const seen = new Set();
+  while (current && !seen.has(current.id)) {
+    seen.add(current.id);
+    trail.unshift(current);
+    current = current.parent_id ? byId.get(current.parent_id) : null;
+  }
+  return trail;
+}
+
 function ProductImage({ image, productName }) {
   if (!image?.src) {
     return <span className="product-detail-placeholder">ANHUY</span>;
@@ -46,6 +65,9 @@ function ProductDetail({ route }) {
   const [quantity, setQuantity] = detailUseState(1);
   const [activeTab, setActiveTab] = detailUseState('description');
   const [added, setAdded] = detailUseState(false);
+  const [zoomOpen, setZoomOpen] = detailUseState(false);
+  const [zoomScale, setZoomScale] = detailUseState(1);
+  const [zoomOrigin, setZoomOrigin] = detailUseState({ x: 50, y: 50 });
   const slug = getProductSlug(route);
 
   detailUseEffect(() => {
@@ -73,10 +95,61 @@ function ProductDetail({ route }) {
     return () => window.clearTimeout(timer);
   }, [added]);
 
+  // Khóa cuộn trang + đóng bằng phím Esc khi mở lightbox phóng to ảnh.
+  detailUseEffect(() => {
+    if (!zoomOpen) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') setZoomOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [zoomOpen]);
+
+  // Mỗi lần mở lại hoặc đổi ảnh thì trả mức zoom về mặc định.
+  detailUseEffect(() => {
+    setZoomScale(1);
+    setZoomOrigin({ x: 50, y: 50 });
+  }, [zoomOpen, selectedImage]);
+
+  function moveZoomOrigin(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    setZoomOrigin({
+      x: Math.max(0, Math.min(100, x)),
+      y: Math.max(0, Math.min(100, y)),
+    });
+  }
+
+  function toggleZoomAtPoint(event) {
+    moveZoomOrigin(event);
+    setZoomScale((scale) => (scale > 1 ? 1 : 2.4));
+  }
+
+  function adjustZoomWheel(event) {
+    moveZoomOrigin(event);
+    setZoomScale((scale) => {
+      const next = scale + (event.deltaY < 0 ? 0.4 : -0.4);
+      return Math.max(1, Math.min(4, Math.round(next * 100) / 100));
+    });
+  }
+
+  detailUseEffect(() => {
+    if (product.id && product.name) {
+      document.title = `${product.name} | An Huy`;
+    }
+  }, [product.id, product.name]);
+
   const categoryNames = detailUseMemo(
     () => product.categories.map((category) => category.name).filter(Boolean),
     [product.categories],
   );
+  const breadcrumbTrail = detailUseMemo(() => buildBreadcrumbTrail(product), [product]);
   const productType = categoryNames.find((name) => name.toLowerCase().includes('khay') && name !== 'Khay') || categoryNames[0] || 'An Huy';
   const gallery = product.images.length ? product.images : [selectedImage].filter(Boolean);
   const description = product.description || 'Thông tin sản phẩm đang được cập nhật.';
@@ -88,8 +161,6 @@ function ProductDetail({ route }) {
       <section className="product-detail-page">
         <nav className="product-detail-breadcrumb">
           <a href="#">Trang chủ</a>
-          <span>›</span>
-          <a href="#category/khay">Khay</a>
         </nav>
         <p className="product-detail-empty">Không tìm thấy sản phẩm.</p>
       </section>
@@ -100,10 +171,18 @@ function ProductDetail({ route }) {
     <section className="product-detail-page">
       <nav className="product-detail-breadcrumb">
         <a href="#">Trang chủ</a>
-        <span>›</span>
-        <a href="#category/khay">Khay</a>
-        <span>›</span>
-        <strong>{product.name}</strong>
+        {breadcrumbTrail.map((category) => (
+          <React.Fragment key={category.id || category.slug}>
+            <span>›</span>
+            <a href={`#category/${category.slug}`}>{category.name}</a>
+          </React.Fragment>
+        ))}
+        {product.id && (
+          <>
+            <span>›</span>
+            <strong>{product.name}</strong>
+          </>
+        )}
       </nav>
 
       <div className="product-detail-layout">
@@ -123,7 +202,12 @@ function ProductDetail({ route }) {
 
         <div className="product-main-image">
           <ProductImage image={selectedImage || product.primaryImage} productName={product.name} />
-          <button type="button" aria-label="Xem ảnh lớn">
+          <button
+            type="button"
+            aria-label="Xem ảnh lớn"
+            disabled={!(selectedImage || product.primaryImage)?.src}
+            onClick={() => setZoomOpen(true)}
+          >
             <DetailIcon name="search" size={17} />
           </button>
         </div>
@@ -244,6 +328,43 @@ function ProductDetail({ route }) {
           </ul>
         </div>
       </div>
+
+      {zoomOpen && (selectedImage || product.primaryImage)?.src && (
+        <div className="product-zoom-overlay" onClick={() => setZoomOpen(false)}>
+          <button
+            type="button"
+            className="product-zoom-close"
+            aria-label="Đóng"
+            onClick={() => setZoomOpen(false)}
+          >
+            ×
+          </button>
+          <figure
+            className={`product-zoom-stage ${zoomScale > 1 ? 'zoomed' : ''}`}
+            onClick={(event) => {
+              event.stopPropagation();
+              toggleZoomAtPoint(event);
+            }}
+            onMouseMove={zoomScale > 1 ? moveZoomOrigin : undefined}
+            onWheel={adjustZoomWheel}
+          >
+            <img
+              src={(selectedImage || product.primaryImage).src}
+              alt={(selectedImage || product.primaryImage).alt || product.name}
+              style={{
+                transform: `scale(${zoomScale})`,
+                transformOrigin: `${zoomOrigin.x}% ${zoomOrigin.y}%`,
+              }}
+              draggable="false"
+            />
+            <span className="product-zoom-hint">
+              {zoomScale > 1
+                ? 'Di chuột để xem chi tiết · nhấp để thu nhỏ · lăn chuột để đổi mức zoom'
+                : 'Nhấp vào ảnh để phóng to · lăn chuột để zoom'}
+            </span>
+          </figure>
+        </div>
+      )}
     </section>
   );
 }

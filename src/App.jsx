@@ -2,6 +2,24 @@
 const { useEffect } = React;
 const { useScrollReveal, useHashRoute } = window.AppHooks;
 
+const BASE_TITLE = 'An Huy – Gốm sứ & đồ trang trí thủ công mỹ nghệ';
+
+// Title cho các route có nội dung tĩnh. Route #product/ và #category/ tự đặt
+// title riêng (theo tên sản phẩm/danh mục) khi tải xong dữ liệu.
+const ROUTE_TITLES = {
+  '#': BASE_TITLE,
+  '': BASE_TITLE,
+  '#passion': 'Niềm đam mê | An Huy',
+  '#contact': 'Liên hệ | An Huy',
+  '#capacity': 'Năng lực sản xuất | An Huy',
+  '#admin/products': 'Quản lý sản phẩm | An Huy',
+  '#admin/categories': 'Quản lý danh mục | An Huy',
+  '#admin/featured': 'Quản lý Featured | An Huy',
+  '#admin/partners': 'Quản lý đối tác | An Huy',
+  '#admin/navigation-groups': 'Quản lý nhóm menu | An Huy',
+  '#admin/navigation-items': 'Quản lý menu item | An Huy',
+};
+
 class AppErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -39,6 +57,11 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [route]);
 
+  useEffect(() => {
+    if (route.startsWith('#product/') || route.startsWith('#category/')) return;
+    document.title = ROUTE_TITLES[route] || BASE_TITLE;
+  }, [route]);
+
   return (
     <main>
       <AppErrorBoundary key={route}>
@@ -73,6 +96,7 @@ function App() {
             {window.Furniture && <window.Furniture />}
             <window.CustomerGallery />
             <window.PartnersSection />
+            {window.PressMedia && <window.PressMedia />}
           </>
         )}
         {!isAdminRoute && <window.Footer />}
