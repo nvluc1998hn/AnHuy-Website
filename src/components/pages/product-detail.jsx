@@ -213,7 +213,7 @@ function ProductDetail({ route }) {
         </div>
 
         <article className="product-detail-info">
-          <span className="product-detail-type">{productType}</span>
+          {/* <span className="product-detail-type">{productType}</span> */}
           <h1>{product.name}</h1>
           <strong>{formatCurrency(product.price)}</strong>
           <p>{description}</p>

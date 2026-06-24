@@ -36,6 +36,12 @@ function formatCurrency(value) {
   return Number(value || 0).toLocaleString('vi-VN') + 'đ';
 }
 
+// Hiển thị giá có dấu chấm phân cách hàng nghìn khi nhập (vd 25000000 -> 25.000.000).
+function formatPriceInput(value) {
+  const digits = String(value ?? '').replace(/\D/g, '');
+  return digits ? Number(digits).toLocaleString('vi-VN') : '';
+}
+
 function buildForm(product) {
   return {
     ...emptyForm,
@@ -399,8 +405,14 @@ function ProductAdmin() {
 
           <div className="admin-form-grid">
             <label>
-              Giá
-              <input type="number" min="0" value={form.price} onChange={(event) => updateField('price', event.target.value)} />
+              Giá (đ)
+              <input
+                type="text"
+                inputMode="numeric"
+                value={formatPriceInput(form.price)}
+                onChange={(event) => updateField('price', event.target.value.replace(/\D/g, ''))}
+                placeholder="0"
+              />
             </label>
             <label>
               Trạng thái

@@ -96,7 +96,6 @@ function App() {
             {window.Furniture && <window.Furniture />}
             <window.CustomerGallery />
             <window.PartnersSection />
-            {window.PressMedia && <window.PressMedia />}
           </>
         )}
         {!isAdminRoute && <window.Footer />}
