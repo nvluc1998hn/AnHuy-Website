@@ -53,7 +53,7 @@
 
     const codeAliasesByCode = {
       'best-seller': ['best-seller', 'bestsale', 'best-sale', 'best_seller'],
-      'top-picks': ['top-picks', 'toppicks', 'top-pick', 'top_picks'],
+      'top-picks': ['top-picks', 'toppicks', 'top-pic', 'top-pick', 'top_picks'],
     };
     const codeAliases = codeAliasesByCode[code] || [code];
     const sections = await fetchJson(
